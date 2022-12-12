@@ -94,6 +94,21 @@ input[type="submit"]:hover {
   background-color: #fff;
   color: rgb(71 110 215);
 }
+/* Toast */
+.toast{
+  padding: 0.5em; 
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+  background-color: rgb(93 201 71);
+  color: rgb(62, 62, 62);
+  border-radius: 5px;
+  transform: translateX(-150%);
+  transition: transform 1.5s;
+}
+.toast h3{
+  margin-bottom: 0.25em;
+}
 @media (min-width: 576px) {
   #open-menu,
   #close-menu {

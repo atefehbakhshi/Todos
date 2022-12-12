@@ -25,7 +25,7 @@
           <li><a href="./todos.html">Todos</a></li>
         </ul>
       </nav>
-      <form action="" id="form">
+      <form action="" id="create-list">
         <div class="inputs">
           <label for="title">Title *</label>
           <input type="text" id="title" placeholder="What will you do today?" />
@@ -37,14 +37,19 @@
         </div>
         <div class="inputs">
           <label for="title">Due Date *</label>
-          <input type="text" id="date" placeholder="10/31/2022" />
+          <input type="text" id="dueDate" placeholder="10/31/2022" />
           <span></span>
         </div>
         <div>
           <input type="submit" id="submit-btn" />
         </div>
       </form>
+      <div class="toast">
+        <h3>Successful</h3>
+        <p>The todo successfully submitted</p>
+      </div>
     </div>
+    <script src="hamburgerMenu.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
