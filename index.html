@@ -27,18 +27,18 @@
       </nav>
       <form action="" id="create-list">
         <div class="inputs">
-          <label for="title">Title *</label>
-          <input type="text" id="title" placeholder="What will you do today?" />
-          <span></span>
+          <label for="title" id="title-label">Title *</label>
+          <input type="text" id="title" placeholder="What will you do today?"/>
+          <span id="required-title">The title is required</span>
         </div>
         <div class="inputs">
           <label for="description">Description</label>
           <input type="text" id="description" placeholder="Some information" />
         </div>
         <div class="inputs">
-          <label for="title">Due Date *</label>
+          <label for="dueDate" id="dueDate-label">Due Date *</label>
           <input type="text" id="dueDate" placeholder="10/31/2022" />
-          <span></span>
+          <span id="required-dueDate">The date is required</span>
         </div>
         <div>
           <input type="submit" id="submit-btn" />

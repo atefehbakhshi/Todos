@@ -94,6 +94,15 @@ input[type="submit"]:hover {
   background-color: #fff;
   color: rgb(71 110 215);
 }
+/* Required inputs */
+#requierd-title,#required-dueDate{
+  margin-top: 0.5em;
+  display: none;
+  color: rgb(243, 61, 61);
+  font-size: 0.75em;
+  font-weight: 100;
+  letter-spacing: 0.5px;
+}
 /* Toast */
 .toast{
   padding: 0.5em; 
