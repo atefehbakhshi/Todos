@@ -1,0 +1,120 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("images/background-image.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 2em 1em;
+  background-color: rgba(57, 47, 47, 0.8);
+  color: #fff;
+  font-family: "Lucida Sans", sans-serif;
+  font-size: 1em;
+  position: relative;
+  overflow: hidden;
+}
+#open-menu {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+#hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  transform: translateX(100%);
+  transition: transform 0.6s;
+}
+#hamburger-menu span {
+  margin: 1em;
+  font-size: larger;
+  font-weight: bold;
+  cursor: pointer;
+}
+#close-menu {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+#navbar {
+  display: none;
+}
+form {
+  width: 80%;
+  max-width: 450px;
+  transition: opacity 0.6s;
+}
+.inputs {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 0;
+  margin-bottom: 1em;
+}
+label {
+  margin-bottom: 0.5em;
+}
+input {
+  width: 100%;
+  padding: 1em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+input[type="submit"] {
+  margin-top: 1em;
+  background-color: rgb(71 110 215);
+  color: #fff;
+}
+input[type="submit"]:hover {
+  border: 2px solid rgb(71 110 215);
+  background-color: #fff;
+  color: rgb(71 110 215);
+}
+@media (min-width: 576px) {
+  #open-menu,
+  #close-menu {
+    display: none;
+  }
+  #navbar {
+    display: block;
+    position: absolute;
+    top: 0;
+    padding: 1em;
+    background-color: black;
+    width: 100%;
+  }
+  #navbar ul {
+    display: flex;
+    list-style: none;
+  }
+  #navbar ul li {
+    font-size: large;
+    cursor: pointer;
+  }
+  #navbar ul li:hover {
+    color: rgb(235, 236, 239);
+  }
+  #navbar ul li:last-child {
+    margin: 0 1em;
+  }
+}
