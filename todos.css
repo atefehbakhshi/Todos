@@ -1,0 +1,53 @@
+#todos-container {
+  width: 80%;
+  max-width: 450px;
+  transition: opacity 0.6s;
+}
+#pagination-nav {
+  position: absolute;
+  bottom: 2em;
+  border: 2px solid rgb(71 110 215);
+  background-color: rgba(255, 255, 255, 0);
+}
+.pagination {
+  display: flex;
+  list-style: none;
+}
+.pagination li {
+  padding: 0.25em 0.5em;
+  border-right: 1px solid rgb(71 110 215);
+}
+.pagination li:first-child {
+  border-left: none;
+}
+.pagination li:last-child {
+  border-right: none;
+}
+.page-link {
+  text-decoration: none;
+  color: #fff;
+  font-family: "Lucida Sans", sans-serif;
+  font-size: 1em;
+}
+.active {
+  background-color: rgb(71 110 215);
+}
+
+/* lists from server */
+.todolist {
+  border: 1px solid white;
+  margin-bottom: 1.5em;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+}
+.todolist-title{
+  margin: 0.5em 0 1em 0;
+  font-size: 1.25em;
+}
+.description {
+    margin: 0.5em 0 1em 0;
+}
+/* modify inputs which we set in style.css file */
+input {
+  width: 5%;
+}
