@@ -19,12 +19,21 @@ async function readTodos(page = 1) {
 }
 function addToDom(todo) {
   const html = `
-<div class='todolist'>
-    <div class='todolist-title'>
-      <input type="radio" id="${todo.title}" name="fav_language" value="HTML">
-      <label for="${todo.title}">${todo.title}</label>
+<div class='todolist' id="${todo.id}">
+    <div class="title-reaction">
+      <div class='todolist-title'>
+        <input type="radio" id="${todo.list}">
+        <label for="${todo.list}">${todo.title}</label>
+      </div>
+
+      <div class='edit-delete'>
+        <span class="material-symbols-outlined edit" >edit</span>
+        <span class="material-symbols-outlined delete" >delete</span>
+      </div>
+
     </div>
     <p class='description'>${todo.description}</p>
+   
 </div>
     `;
   todosContainer.insertAdjacentHTML("beforeend", html);
@@ -47,6 +56,8 @@ document.querySelector("ul.pagination").addEventListener("click", (e) => {
   lis.forEach((li) => li.classList.remove("activee"));
   if (e.composedPath()[0].classList.contains("page-link")) {
     e.target.parentElement.classList.add("active");
+    document.location.href = `todos.html#/?page=` + e.target.innerHTML;
+    console.log(document.location.href);
   }
   const currentPage = Number(e.target.innerText);
   readTodos(currentPage);

@@ -41,9 +41,15 @@
   background-color: rgba(255, 255, 255, 0.75);
   color: rgb(61, 61, 61);
 }
+.title-reaction{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .todolist-title{
   margin: 0.5em 0 1em 0;
   font-size: 1.25em;
+  width: 80%;
 }
 .description {
     margin: 0.5em 0 1em 0;
@@ -51,4 +57,7 @@
 /* modify inputs which we set in style.css file */
 input {
   width: 5%;
+}
+.edit,.delete{
+  cursor: pointer;
 }
