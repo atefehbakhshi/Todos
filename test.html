@@ -1,0 +1,16 @@
+<div class="todolist" id="${todo.id}-${todo.userId}">
+  <div class="title-reaction">
+    <div class="title-date">
+      <div class="todo-title">
+        <input type="radio" id="${todo.list}" />
+        <label for="${todo.list}">${todo.title}</label>
+      </div>
+      <p class="dueDate">${todo.dueDate}</p>
+    </div>
+    <div class="edit-delete">
+      <span class="material-symbols-outlined edit">edit</span>
+      <span class="material-symbols-outlined delete">delete</span>
+    </div>
+  </div>
+  <p class="description">${todo.description}</p>
+</div>

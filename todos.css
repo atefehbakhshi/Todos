@@ -70,7 +70,6 @@ body {
 /* modify inputs which we set in style.css file */
 input {
   width: 15px;
-  /* height: 10%; */
 }
 /* Edit and Delete buttons */
 .edit,
