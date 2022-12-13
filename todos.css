@@ -1,7 +1,12 @@
+body{
+  height: auto;
+}
 #todos-container {
   width: 80%;
+  min-height: 100vh;
   max-width: 450px;
   transition: opacity 0.6s;
+  margin: 3em 0 2em 0;
 }
 #pagination-nav {
   position: absolute;
