@@ -27,7 +27,7 @@
         </ul>
       </nav>
       <div id="todos-container"></div>
-      <div id="delete-modal">
+      <div class="delete-modal">
         <div id="delete-modal-window">
           <div id="modal-title">
             <span class="material-symbols-outlined"> warning </span>
@@ -35,7 +35,10 @@
           </div>
           <hr>
           <p>Do you want to delete this item?</p>
-          <div class="item-container"></div>
+          <div id="item-container">
+            <h4 id="delete-item-title"></h4>
+            <p id="delete-item-due-date"></p>
+          </div>
           <hr>
           <div id="modal-btns">
             <button id="modal-delete-btn">Delete</button>

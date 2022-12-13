@@ -1,6 +1,12 @@
 const API_URL = "https://63969f1c90ac47c68089df44.mockapi.io";
-const todosContainer = document.querySelector("#todos-container");
 const DEFAULT_PAGE_SIZE = 5;
+const todosContainer = document.querySelector("#todos-container");
+// Modal
+const deleteModal = document.querySelector(".delete-modal");
+const deleteModalBtn = document.querySelector("#modal-delete-btn");
+const cancelModalBtn = document.querySelector("#modal-cancel-btn");
+const deleteItemTitle = document.querySelector("#delete-item-title");
+const deleteItemDueDate = document.querySelector("#delete-item-due-date");
 
 // Read
 async function readTodos(page = 1) {
@@ -19,27 +25,28 @@ async function readTodos(page = 1) {
 }
 function addToDom(todo) {
   const html = `
-<div class='todolist' id="${todo.id}-${todo.userId}">
-    <div class="title-reaction">
-      <div class='todolist-title'>
-        <input type="radio" id="${todo.list}">
+<div class="todolist" id="${todo.id}-${todo.userId}">
+  <div class="title-reaction">
+    <div class="title-date">
+      <div class="todo-title">
+        <input type="radio" id="${todo.list}" />
         <label for="${todo.list}">${todo.title}</label>
       </div>
-
-      <div class='edit-delete'>
-        <span class="material-symbols-outlined edit" >edit</span>
-        <span class="material-symbols-outlined delete" >delete</span>
-      </div>
-
+      <p class="dueDate">${todo.dueDate}</p>
     </div>
-    <p class='description'>${todo.description}</p>
-   
+    <div class="edit-delete">
+      <span class="material-symbols-outlined edit">edit</span>
+      <span class="material-symbols-outlined delete">delete</span>
+    </div>
+  </div>
+  <p class="description">${todo.description}</p>
 </div>
     `;
   todosContainer.insertAdjacentHTML("beforeend", html);
 }
 readTodos();
 
+// Pagination
 function createPagination(productCount, currentPage) {
   const pageCount = Math.ceil(productCount / DEFAULT_PAGE_SIZE);
   let lis = "";
@@ -50,26 +57,69 @@ function createPagination(productCount, currentPage) {
   }
   document.querySelector("ul.pagination").innerHTML = lis;
 }
-
 document.querySelector("ul.pagination").addEventListener("click", (e) => {
-  e.preventDefault()
+  e.preventDefault();
   const lis = document.querySelectorAll(".page-item");
   lis.forEach((li) => li.classList.remove("activee"));
   if (e.composedPath()[0].classList.contains("page-link")) {
     e.target.parentElement.classList.add("active");
     if (history.pushState) {
-      let newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?page='+e.target.innerHTML;
-      window.history.pushState({path:newurl},'',newurl);
-  }
+      let newurl =
+        window.location.protocol +
+        "//" +
+        window.location.host +
+        window.location.pathname +
+        "?page=" +
+        e.target.innerHTML;
+      window.history.pushState({ path: newurl }, "", newurl);
+    }
   }
   const currentPage = Number(e.target.innerText);
   readTodos(currentPage);
 });
 
-// Edit
-todosContainer.addEventListener('click',(e)=>{
-  if(e.target.classList.contains('edit')){
-   window.location.href='index.html?id='+e.target.closest('.todolist').id
-  // console.log()
+// Edit / Delete
+todosContainer.addEventListener("click", (e) => {
+  const id = e.target.closest(".todolist").id;
+  if (e.target.classList.contains("edit")) {
+    window.location.href = "index.html?id=" + id;
   }
-})
+  if (e.target.classList.contains("delete")) {
+    const currentPage = window.location.href.split("=")[1];
+    deleteModal.style.display = "flex";
+    deleteModal.id = id;
+    deleteModal.dataset.currentPage = currentPage;
+    modalInformations(e);
+  }
+});
+
+// Delete
+deleteModalBtn.addEventListener("click", () => {
+  const modalId = deleteModal.id;
+  const currentPage = deleteModal.dataset.currentPage;
+  deleteList(modalId, currentPage);
+  deleteModal.style.display = "none";
+});
+
+async function deleteList(listId, currentPage) {
+  const id = listId.split("-")[0];
+  try {
+    const res = await fetch(`${API_URL}/todos/${id}`, { method: "DELETE" });
+    readTodos(currentPage);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+cancelModalBtn.addEventListener("click", () => {
+  deleteModal.style.display = "none";
+});
+
+// display title and due date of item in modal
+function modalInformations(e) {
+  const titleDueDate = e.target.closest(".edit-delete").previousElementSibling;
+  const title = titleDueDate.children[0].children[1].innerHTML;
+  const date = titleDueDate.children[1].innerHTML;
+  deleteItemTitle.innerHTML = title;
+  deleteItemDueDate.innerHTML = date;
+}

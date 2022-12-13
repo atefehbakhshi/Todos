@@ -2,7 +2,7 @@ body {
   height: auto;
 }
 #todos-container {
-  width: 80%;
+  width:100%;
   min-height: 100vh;
   max-width: 450px;
   transition: opacity 0.6s;
@@ -51,17 +51,26 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.todolist-title {
-  margin: 0.5em 0 1em 0;
-  font-size: 1.25em;
+.title-date {
   width: 80%;
+  display: flex;
+  align-items: center;
+}
+.todo-title {
+  font-weight: bold;
+}
+.dueDate {
+  margin-left: 0.5em;
+  font-size: 0.75em;
+  color: rgb(61, 61, 61);
 }
 .description {
   margin: 0.5em 0 1em 0;
 }
 /* modify inputs which we set in style.css file */
 input {
-  width: 5%;
+  width: 15px;
+  /* height: 10%; */
 }
 /* Edit and Delete buttons */
 .edit,
@@ -69,17 +78,17 @@ input {
   cursor: pointer;
 }
 /* Modal for Delete */
-#delete-modal{
+.delete-modal {
   display: none;
   justify-content: center;
   position: absolute;
-  top:0;
+  top: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 10;
 }
-#delete-modal-window{
+#delete-modal-window {
   width: 70%;
   max-width: 450px;
   position: fixed;
@@ -89,28 +98,41 @@ input {
   margin: 10em auto;
   color: black;
 }
-#delete-modal-window p{
+#delete-modal-window p {
   margin: 1em 0;
 }
-#modal-title{
+#modal-title {
   display: flex;
   align-items: center;
   margin-bottom: 1em;
 }
-#modal-title h3{
- color: rgb(61, 61, 61);
+#modal-title h3 {
+  color: rgb(61, 61, 61);
 }
-#modal-title span{
+#modal-title span {
   color: red;
   margin-right: 0.5em;
   font-weight: bold;
 }
-#modal-btns{
+#item-container{
+  display: flex;
+  align-items: center;
+}
+#item-container h4{
+  font-weight: bold;
+  color: rgb(61, 61, 61);
+}
+#item-container p{
+  font-size: 0.75em;
+  margin-left: 0.75em;
+  color: rgb(102, 102, 102);
+}
+#modal-btns {
   display: flex;
   justify-content: space-between;
   margin-top: 1em;
 }
-#modal-btns button{
+#modal-btns button {
   width: 45%;
   padding: 0.75em;
   border: none;
