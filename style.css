@@ -95,7 +95,7 @@ input[type="submit"]:hover {
   color: rgb(71 110 215);
 }
 /* Required inputs */
-#requierd-title,#required-dueDate{
+#required-title,#required-dueDate{
   margin-top: 0.5em;
   display: none;
   color: rgb(243, 61, 61);
@@ -125,7 +125,7 @@ input[type="submit"]:hover {
   }
   #navbar {
     display: block;
-    position: absolute;
+    position: fixed;
     top: 0;
     padding: 1em;
     background-color: black;
