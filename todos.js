@@ -19,7 +19,7 @@ async function readTodos(page = 1) {
 }
 function addToDom(todo) {
   const html = `
-<div class='todolist' id="${todo.id}">
+<div class='todolist' id="${todo.id}-${todo.userId}">
     <div class="title-reaction">
       <div class='todolist-title'>
         <input type="radio" id="${todo.list}">
@@ -65,3 +65,11 @@ document.querySelector("ul.pagination").addEventListener("click", (e) => {
   const currentPage = Number(e.target.innerText);
   readTodos(currentPage);
 });
+
+// Edit
+todosContainer.addEventListener('click',(e)=>{
+  if(e.target.classList.contains('edit')){
+   window.location.href='index.html?id='+e.target.closest('.todolist').id
+  // console.log()
+  }
+})
