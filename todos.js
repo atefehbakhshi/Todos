@@ -1,5 +1,5 @@
 const API_URL = "https://63969f1c90ac47c68089df44.mockapi.io";
-const DEFAULT_PAGE_SIZE = 2;
+const DEFAULT_PAGE_SIZE = 1;
 const todosContainer = document.querySelector("#todos-container");
 // Modal
 const deleteModal = document.querySelector(".delete-modal");
@@ -31,17 +31,30 @@ if (savedPage) {
 async function readTodos(page = 1) {
   todosContainer.innerHTML = "";
   try {
-    const res = await fetch(
-      `${API_URL}/todos?page=${page}&limit=${DEFAULT_PAGE_SIZE}`
-    );
+    const res = await fetch(`${API_URL}/todos`);
     const data = await res.json();
     const { items, count } = data;
-    items.forEach(addToDom);
+
+    const itemInPage = frontEndPagination(items,page)
+    itemInPage.forEach(addToDom);
     createPagination(count, page);
   } catch (error) {
     console.log(error);
   }
 }
+
+function frontEndPagination(items,page){
+  let subItems = [];
+  for (let i = 0; i < items.length; i += DEFAULT_PAGE_SIZE) {
+    let temp = [];
+    for (let j = i; j < i + DEFAULT_PAGE_SIZE; j++) {
+      temp.push(items[j]);
+    }
+    subItems.push(temp);
+  }
+  return subItems[page - 1]
+}
+
 function addToDom(todo) {
   const html = `
 <div class="todolist" id="${todo.id}-${todo.userId}">
