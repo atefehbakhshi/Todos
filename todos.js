@@ -1,5 +1,5 @@
 const API_URL = "https://63969f1c90ac47c68089df44.mockapi.io";
-const DEFAULT_PAGE_SIZE = 5;
+const DEFAULT_PAGE_SIZE = 2;
 const todosContainer = document.querySelector("#todos-container");
 // Modal
 const deleteModal = document.querySelector(".delete-modal");
@@ -7,6 +7,25 @@ const deleteModalBtn = document.querySelector("#modal-delete-btn");
 const cancelModalBtn = document.querySelector("#modal-cancel-btn");
 const deleteItemTitle = document.querySelector("#delete-item-title");
 const deleteItemDueDate = document.querySelector("#delete-item-due-date");
+
+// when page is refreshed
+const savedPage = localStorage.getItem("pageNumber");
+let pageNumber;
+if (savedPage) {
+  pageNumber = savedPage;
+  if (history.pushState) {
+    let newurl =
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      window.location.pathname +
+      "?page=" +
+      pageNumber;
+    window.history.pushState({ path: newurl }, "", newurl);
+  }
+} else {
+  pageNumber = 1;
+}
 
 // Read
 async function readTodos(page = 1) {
@@ -44,7 +63,7 @@ function addToDom(todo) {
     `;
   todosContainer.insertAdjacentHTML("beforeend", html);
 }
-readTodos();
+readTodos(pageNumber);
 
 // Pagination
 function createPagination(productCount, currentPage) {
@@ -60,7 +79,7 @@ function createPagination(productCount, currentPage) {
 document.querySelector("ul.pagination").addEventListener("click", (e) => {
   e.preventDefault();
   const lis = document.querySelectorAll(".page-item");
-  lis.forEach((li) => li.classList.remove("activee"));
+  lis.forEach((li) => li.classList.remove("active"));
   if (e.composedPath()[0].classList.contains("page-link")) {
     e.target.parentElement.classList.add("active");
     if (history.pushState) {
@@ -75,7 +94,11 @@ document.querySelector("ul.pagination").addEventListener("click", (e) => {
     }
   }
   const currentPage = Number(e.target.innerText);
+
   readTodos(currentPage);
+
+  // when refresh page
+  localStorage.setItem("pageNumber", `${currentPage}`);
 });
 
 // Edit / Delete
