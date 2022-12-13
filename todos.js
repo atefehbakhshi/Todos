@@ -46,18 +46,21 @@ function createPagination(productCount, currentPage) {
   for (let i = 1; i <= pageCount; i++) {
     lis += `<li class="page-item ${
       i === currentPage ? "active" : ""
-    }"><a href="#" class="page-link">${i}</a></li>`;
+    }"><a href="todos.html?page=${i}" class="page-link">${i}</a></li>`;
   }
   document.querySelector("ul.pagination").innerHTML = lis;
 }
 
 document.querySelector("ul.pagination").addEventListener("click", (e) => {
+  e.preventDefault()
   const lis = document.querySelectorAll(".page-item");
   lis.forEach((li) => li.classList.remove("activee"));
   if (e.composedPath()[0].classList.contains("page-link")) {
     e.target.parentElement.classList.add("active");
-    document.location.href = `todos.html#/?page=` + e.target.innerHTML;
-    console.log(document.location.href);
+    if (history.pushState) {
+      let newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?page='+e.target.innerHTML;
+      window.history.pushState({path:newurl},'',newurl);
+  }
   }
   const currentPage = Number(e.target.innerText);
   readTodos(currentPage);
