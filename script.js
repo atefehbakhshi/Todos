@@ -50,6 +50,7 @@ function addToForm(item) {
   descriptionInput.value = item[0].description;
   dueDateInput.value = item[0].dueDate;
   submitBtn.innerText = "Save";
+  listForm.dataset.createDate = item[0].createdAt;
 }
 async function updatedList(e) {
   e.preventDefault();
@@ -82,12 +83,16 @@ function gatherFormDate(e) {
     dueDateInput.style.border = "3px solid red";
     dueDateAlert.style.display = "block";
   } else {
+    let createDate;
+    e.target.getAttribute("data-create-date")
+      ? (createDate = e.target.getAttribute("data-create-date"))
+      : (createDate = `${new Date().getFullYear()}/${new Date().getMonth()}/${new Date().getDate()}`);
     return {
       title: title.value,
       dueDate: dueDate.value,
       description: description.value,
-      createdAt: new Date().getTime(),
-      updatedAt: new Date().getTime(),
+      createdAt: createDate,
+      updatedAt: `${new Date().getFullYear()}/${new Date().getMonth()}/${new Date().getDate()}`,
       checked: false,
       id: new Date().getTime(),
     };
@@ -126,7 +131,6 @@ function resetForm() {
     submitBtn.innerText = "Submit";
   }
 }
-
 
 // Create or Edit
 const format = "?id=";
