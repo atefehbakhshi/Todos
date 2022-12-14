@@ -66,6 +66,7 @@ async function updatedList(e) {
       removeAlert();
       successfullMessage();
       resetForm();
+      resetUrl();
     } catch (error) {
       console.log(error);
     }
@@ -130,6 +131,12 @@ function resetForm() {
   if (submitBtn.innerText === "Save") {
     submitBtn.innerText = "Submit";
   }
+}
+// Reset url
+function resetUrl(){
+  setTimeout(()=>{
+    window.location.href='index.html'
+  },4000)
 }
 
 // Create or Edit
