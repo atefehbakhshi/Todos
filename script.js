@@ -25,10 +25,8 @@ async function createNewList(e) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newList),
       });
-      // When page does not found
-      if (res.status === 404) {
-        window.location.href = "notFoundPage.html";
-      }
+      const statusCode = res.status;
+      pageNotFound(statusCode);
       removeAlert();
       successfullMessage();
       resetForm();
@@ -42,6 +40,8 @@ async function createNewList(e) {
 async function editTodos(todosId) {
   try {
     const res = await fetch(`${API_URL}/todos?search=${todosId}`);
+    const statusCode = res.status;
+    pageNotFound(statusCode);
     const data = await res.json();
     const { items: item } = data;
     addToForm(item);
@@ -67,6 +67,8 @@ async function updatedList(e) {
         body: JSON.stringify(updatedList),
         headers: { "Content-Type": "application/json" },
       });
+      const statusCode = res.status;
+      pageNotFound(statusCode);
       removeAlert();
       successfullMessage();
       resetForm();
@@ -141,6 +143,13 @@ function resetUrl() {
   setTimeout(() => {
     window.location.href = "index.html";
   }, 4000);
+}
+
+// When page does not found
+function pageNotFound(code) {
+  if (code === 404) {
+    window.location.href = "notFoundPage.html";
+  }
 }
 
 // Create or Edit

@@ -36,6 +36,8 @@ async function readTodos(page = 1) {
   todosContainer.innerHTML = "";
   try {
     const res = await fetch(`${API_URL}/todos`);
+    const statusCode = res.status;
+    pageNotFound(statusCode);
     const data = await res.json();
     const { items, count } = data;
 
@@ -44,7 +46,7 @@ async function readTodos(page = 1) {
     if (itemInPage === undefined) {
       localStorage.setItem("pageNumber", `${page - 1}`);
       page = page - 1;
-      pageUrl()
+      pageUrl();
       itemInPage = frontEndPagination(items, page);
     }
     // when each item is removed
@@ -153,6 +155,8 @@ async function deleteList(listId, currentPage) {
   const id = listId.split("-")[0];
   try {
     const res = await fetch(`${API_URL}/todos/${id}`, { method: "DELETE" });
+    const statusCode = res.status;
+    pageNotFound(statusCode);
     readTodos(currentPage);
   } catch (error) {
     console.log(error);
@@ -170,4 +174,10 @@ function modalInformations(e) {
   const date = titleDueDate.children[1].innerHTML;
   deleteItemTitle.innerHTML = title;
   deleteItemDueDate.innerHTML = date;
+}
+// When page does not found
+function pageNotFound(code) {
+  if (code === 404) {
+    window.location.href = "notFoundPage.html";
+  }
 }
