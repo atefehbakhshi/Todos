@@ -25,6 +25,10 @@ async function createNewList(e) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newList),
       });
+      // When page does not found
+      if (res.status === 404) {
+        window.location.href = "notFoundPage.html";
+      }
       removeAlert();
       successfullMessage();
       resetForm();
@@ -133,10 +137,10 @@ function resetForm() {
   }
 }
 // Reset url
-function resetUrl(){
-  setTimeout(()=>{
-    window.location.href='index.html'
-  },4000)
+function resetUrl() {
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 4000);
 }
 
 // Create or Edit
