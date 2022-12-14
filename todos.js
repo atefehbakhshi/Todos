@@ -1,5 +1,5 @@
 const API_URL = "https://63969f1c90ac47c68089df44.mockapi.io";
-const DEFAULT_PAGE_SIZE = 1;
+const DEFAULT_PAGE_SIZE = 2;
 const todosContainer = document.querySelector("#todos-container");
 // Modal
 const deleteModal = document.querySelector(".delete-modal");
@@ -9,10 +9,14 @@ const deleteItemTitle = document.querySelector("#delete-item-title");
 const deleteItemDueDate = document.querySelector("#delete-item-due-date");
 
 // when page is refreshed
-const savedPage = localStorage.getItem("pageNumber");
 let pageNumber;
-if (savedPage) {
-  pageNumber = savedPage;
+function pageUrl() {
+  const savedPage = localStorage.getItem("pageNumber");
+  if (savedPage) {
+    pageNumber = savedPage;
+  } else {
+    pageNumber = 1;
+  }
   if (history.pushState) {
     let newurl =
       window.location.protocol +
@@ -23,9 +27,9 @@ if (savedPage) {
       pageNumber;
     window.history.pushState({ path: newurl }, "", newurl);
   }
-} else {
-  pageNumber = 1;
 }
+pageUrl();
+readTodos(pageNumber);
 
 // Read
 async function readTodos(page = 1) {
@@ -35,7 +39,16 @@ async function readTodos(page = 1) {
     const data = await res.json();
     const { items, count } = data;
 
-    const itemInPage = frontEndPagination(items,page)
+    let itemInPage = frontEndPagination(items, page);
+    // when all items in a page are removed
+    if (itemInPage === undefined) {
+      localStorage.setItem("pageNumber", `${page - 1}`);
+      page = page - 1;
+      pageUrl()
+      itemInPage = frontEndPagination(items, page);
+    }
+    // when each item is removed
+    itemInPage = itemInPage.filter((item) => item !== undefined);
     itemInPage.forEach(addToDom);
     createPagination(count, page);
   } catch (error) {
@@ -43,7 +56,7 @@ async function readTodos(page = 1) {
   }
 }
 
-function frontEndPagination(items,page){
+function frontEndPagination(items, page) {
   let subItems = [];
   for (let i = 0; i < items.length; i += DEFAULT_PAGE_SIZE) {
     let temp = [];
@@ -52,7 +65,7 @@ function frontEndPagination(items,page){
     }
     subItems.push(temp);
   }
-  return subItems[page - 1]
+  return subItems[page - 1];
 }
 
 function addToDom(todo) {
@@ -76,7 +89,6 @@ function addToDom(todo) {
     `;
   todosContainer.insertAdjacentHTML("beforeend", html);
 }
-readTodos(pageNumber);
 
 // Pagination
 function createPagination(productCount, currentPage) {
