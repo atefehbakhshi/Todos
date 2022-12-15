@@ -98,7 +98,7 @@ function createPagination(productCount, currentPage) {
   let lis = "";
   for (let i = 1; i <= pageCount; i++) {
     lis += `<li class="page-item ${
-      i === currentPage ? "active" : ""
+      i === Number(currentPage) ? "active" : ""
     }"><a href="todos.html?page=${i}" class="page-link">${i}</a></li>`;
   }
   document.querySelector("ul.pagination").innerHTML = lis;
